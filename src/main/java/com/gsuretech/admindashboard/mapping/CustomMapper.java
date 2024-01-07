@@ -10,6 +10,7 @@ public class CustomMapper {
 
     public AdminDto mapUserCredentialToAdminDto(UserCredential userCredential){
         return  AdminDto.builder()
+                .id(userCredential.getId())
                 .firstname(userCredential.getFirstName())
                 .lastName(userCredential.getLastName())
                 .email(userCredential.getEmail())

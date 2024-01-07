@@ -1,8 +1,5 @@
 package com.gsuretech.admindashboard.config;
 
-import com.gsuretech.admindashboard.entity.Role;
-import com.gsuretech.admindashboard.entity.Team;
-import com.gsuretech.admindashboard.entity.UserCredential;
 import com.gsuretech.admindashboard.mapping.CustomMapper;
 import com.gsuretech.admindashboard.repository.UserCredentialRepository;
 import lombok.AllArgsConstructor;
@@ -20,6 +17,12 @@ public class Runner implements CommandLineRunner {
     private UserCredentialRepository userCredentialRepository;
     private CustomMapper customMapper;
     private PasswordEncoder passwordEncoder;
+
+ /**
+  * add password validation
+  * lowercase, uppercase, numbers, symbols
+  * passwordD12@
+  * **/
 
     @Override
     public void run(String... args) throws Exception {

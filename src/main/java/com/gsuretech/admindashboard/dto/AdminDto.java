@@ -1,7 +1,6 @@
 package com.gsuretech.admindashboard.dto;
 
-import com.gsuretech.admindashboard.entity.Role;
-import com.gsuretech.admindashboard.entity.Team;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

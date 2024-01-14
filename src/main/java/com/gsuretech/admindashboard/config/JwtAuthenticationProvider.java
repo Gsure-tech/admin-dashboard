@@ -25,7 +25,7 @@ public class JwtAuthenticationProvider {
     @Value("${jwt.expiration}")
     private long jwtExpiration;
 
-    private String generateToken(Authentication authentication) {
+    public String generateToken(Authentication authentication) {
         String username = authentication.getName();
         Date currentDate = new Date();
         Date expiryDate = new Date(currentDate.getTime() + jwtExpiration);

@@ -50,10 +50,9 @@ public class AppConfig {
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.csrf(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests(authorize -> authorize.requestMatchers(HttpMethod.POST, "api/v1/users/login")
-                        .permitAll()
-                        .anyRequest()
-                        .authenticated());
+                .authorizeHttpRequests(authorize ->
+                        authorize.requestMatchers(HttpMethod.POST, "api/v1/auth/login").permitAll()
+                        .anyRequest().authenticated());
 
         httpSecurity.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
         httpSecurity.authenticationProvider(authenticationProvider());

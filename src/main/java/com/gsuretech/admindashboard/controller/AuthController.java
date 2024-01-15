@@ -10,14 +10,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("api/v1/auth")
+@RequestMapping("/api/v1/auth")
 @AllArgsConstructor
 
 public class AuthController {
     private final AuthService authService;
 
 
-    @PostMapping("login")
+    @PostMapping("/login")
     public ResponseDto login(@RequestBody LoginDto loginDto){
         return authService.login(loginDto);
     }

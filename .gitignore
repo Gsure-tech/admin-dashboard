@@ -32,5 +32,6 @@ build/
 ### VS Code ###
 .vscode/
 
-#maven
-.application.properties
+# Ignore application properties file
+application.properties
+

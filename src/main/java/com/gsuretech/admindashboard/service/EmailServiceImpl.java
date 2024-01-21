@@ -30,7 +30,7 @@ public class EmailServiceImpl implements EmailService{
             mailMessage.setSubject(emailDetails.getSubject());
 
             javaMailSender.send(mailMessage);
-            log.info("Message sent to; {}", emailDetails.getRecipient());
+            log.info("Message sent to: {}", emailDetails.getRecipient());
             log.info("Message sender: {}", senderEmail);
         }   catch (MailException e){
             throw new RuntimeException(e);

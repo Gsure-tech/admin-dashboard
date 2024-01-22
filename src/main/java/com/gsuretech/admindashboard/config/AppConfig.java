@@ -1,6 +1,7 @@
 package com.gsuretech.admindashboard.config;
 
 import lombok.AllArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -32,6 +33,11 @@ public class AppConfig {
     @Bean
     public PasswordEncoder  passwordEncoder(){
         return  new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    public ModelMapper modelMapper(){
+        return new ModelMapper();
     }
 
     @Bean

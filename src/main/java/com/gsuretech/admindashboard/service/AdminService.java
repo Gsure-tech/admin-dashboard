@@ -33,6 +33,9 @@ public class AdminService {
         if (userCredentialExist.isPresent() && userCredentialExist.get().getInvitationLinkExpiry() != null) {
             if (userCredentialExist.get().getInvitationLinkExpiry().isBefore(LocalDateTime.now())) {
                 userCredentialExist.get().setInvitationLinkExpiry(LocalDateTime.now().plusHours(24));
+                userCredentialRepository.save(userCredentialExist.get());
+                String encryptedEmail = passwordEncoder.encode(request.getEmail());
+                String invitationLink = "https:://sandbox.zeliafinance.com/?email=" + encryptedEmail;
             }
 
         }

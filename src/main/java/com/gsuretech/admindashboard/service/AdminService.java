@@ -2,6 +2,7 @@ package com.gsuretech.admindashboard.service;
 
 
 import com.gsuretech.admindashboard.dto.AdminDto;
+import com.gsuretech.admindashboard.dto.EmailDetails;
 import com.gsuretech.admindashboard.dto.InviteLinkRequest;
 import com.gsuretech.admindashboard.entity.UserCredential;
 import com.gsuretech.admindashboard.repository.UserCredentialRepository;
@@ -36,6 +37,14 @@ public class AdminService {
                 userCredentialRepository.save(userCredentialExist.get());
                 String encryptedEmail = passwordEncoder.encode(request.getEmail());
                 String invitationLink = "https:://sandbox.zeliafinance.com/?email=" + encryptedEmail;
+
+                EmailDetails adminInvite = EmailDetails.builder()
+                        .subject("ADMIN INVITE")
+                        .recipient(userCredentialExist.get().getEmail())
+                        .messageBody("You have been invited to join your team on " +
+                                "QuickPay admin dashboard. Click the link below to join")
+                        .build();
+                emailService.sendEmailAlert(adminInvite);
             }
 
         }

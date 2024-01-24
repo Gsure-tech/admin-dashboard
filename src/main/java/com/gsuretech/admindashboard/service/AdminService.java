@@ -45,6 +45,8 @@ public class AdminService {
                                 "QuickPay admin dashboard. Click the link below to join")
                         .build();
                 emailService.sendEmailAlert(adminInvite);
+
+                return ResponseEntity.badRequest().body(AdminDto.builder().build());
             }
 
         }

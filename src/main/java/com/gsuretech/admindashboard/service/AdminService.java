@@ -2,6 +2,7 @@ package com.gsuretech.admindashboard.service;
 
 
 import com.gsuretech.admindashboard.dto.AdminDto;
+import com.gsuretech.admindashboard.dto.CustomResponse;
 import com.gsuretech.admindashboard.dto.EmailDetails;
 import com.gsuretech.admindashboard.dto.InviteLinkRequest;
 import com.gsuretech.admindashboard.entity.UserCredential;
@@ -27,7 +28,7 @@ public class AdminService {
     private PasswordEncoder passwordEncoder;
     private ModelMapper modelMapper;
 
-    public ResponseEntity<AdminDto> sendInviteLinks(InviteLinkRequest request) {
+    public ResponseEntity<CustomResponse> sendInviteLinks(InviteLinkRequest request) {
         String loggedInUser = SecurityContextHolder.getContext().getAuthentication().getName();
         log.info("Logged in user email: {}", loggedInUser);
         Optional<UserCredential> userCredentialExist = userCredentialRepository.findByEmail(request.getEmail());
@@ -46,8 +47,20 @@ public class AdminService {
                         .build();
                 emailService.sendEmailAlert(adminInvite);
 
-                return ResponseEntity.badRequest().body(AdminDto.builder().build());
+                return ResponseEntity.badRequest().body(CustomResponse
+                        .builder()
+                                .responseCode("200")
+                                .responseMessage("Invitation Link has been sent successfully")
+                        .build());
             }
+            if(userCredentialExist.get().getInvitationLinkExpiry().isAfter(LocalDateTime.now())){
+                return ResponseEntity.badRequest().body(CustomResponse.builder()
+                                .responseCode("200")
+                                .responseMessage("The user has a pending acceptance of a previous invitation link")
+                        .build());
+            }
+
 
         }
     }
+}

@@ -47,7 +47,7 @@ public class AdminService {
                         .build();
                 emailService.sendEmailAlert(adminInvite);
 
-                return ResponseEntity.badRequest().body(CustomResponse
+                return ResponseEntity.ok().body(CustomResponse
                         .builder()
                                 .responseCode("200")
                                 .responseMessage("Invitation Link has been sent successfully")
@@ -55,7 +55,7 @@ public class AdminService {
             }
             if(userCredentialExist.get().getInvitationLinkExpiry().isAfter(LocalDateTime.now())){
                 return ResponseEntity.badRequest().body(CustomResponse.builder()
-                                .responseCode("200")
+                                .responseCode("400")
                                 .responseMessage("The user has a pending acceptance of a previous invitation link")
                         .build());
             }

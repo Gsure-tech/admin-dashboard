@@ -59,6 +59,12 @@ public class AdminService {
                                 .responseMessage("The user has a pending acceptance of a previous invitation link")
                         .build());
             }
+            if(userCredentialExist.get().isInviteAccepted()){
+                return ResponseEntity.badRequest().body(CustomResponse.builder()
+                                .responseCode("400")
+                                .responseMessage("This user has already accepted an invitation link")
+                        .build());
+            }
 
 
         }

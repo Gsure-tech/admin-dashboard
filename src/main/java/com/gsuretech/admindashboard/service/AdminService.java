@@ -5,6 +5,7 @@ import com.gsuretech.admindashboard.dto.AdminDto;
 import com.gsuretech.admindashboard.dto.CustomResponse;
 import com.gsuretech.admindashboard.dto.EmailDetails;
 import com.gsuretech.admindashboard.dto.InviteLinkRequest;
+import com.gsuretech.admindashboard.entity.Role;
 import com.gsuretech.admindashboard.entity.UserCredential;
 import com.gsuretech.admindashboard.repository.UserCredentialRepository;
 import lombok.AllArgsConstructor;
@@ -65,7 +66,13 @@ public class AdminService {
                                 .responseMessage("This user has already accepted an invitation link")
                         .build());
             }
+            if(request.getRole().equals(Role.valueOf("ROLE_USER"))){
+                return ResponseEntity.badRequest().body(CustomResponse.builder()
+                                .responseCode("400")
+                                .responseMessage("User role cannot be applied here")
+                        .build());
 
+            }
 
         }
     }

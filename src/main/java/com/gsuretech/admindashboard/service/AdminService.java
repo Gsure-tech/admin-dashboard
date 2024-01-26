@@ -51,29 +51,30 @@ public class AdminService {
 
                 return ResponseEntity.ok().body(CustomResponse
                         .builder()
-                                .responseCode("200")
-                                .responseMessage("Invitation Link has been sent successfully")
+                        .responseCode("200")
+                        .responseMessage("Invitation Link has been sent successfully")
                         .build());
             }
-            if(userCredentialExist.get().getInvitationLinkExpiry().isAfter(LocalDateTime.now())){
+            if (userCredentialExist.get().getInvitationLinkExpiry().isAfter(LocalDateTime.now())) {
                 return ResponseEntity.badRequest().body(CustomResponse.builder()
-                                .responseCode("400")
-                                .responseMessage("The user has a pending acceptance of a previous invitation link")
+                        .responseCode("400")
+                        .responseMessage("The user has a pending acceptance of a previous invitation link")
                         .build());
             }
-            if(userCredentialExist.get().isInviteAccepted()){
+            if (userCredentialExist.get().isInviteAccepted()) {
                 return ResponseEntity.badRequest().body(CustomResponse.builder()
-                                .responseCode("400")
-                                .responseMessage("This user has already accepted an invitation link")
+                        .responseCode("400")
+                        .responseMessage("This user has already accepted an invitation link")
                         .build());
             }
-            if(request.getRole().equalsIgnoreCase("ROLE_USER")){
+            if (request.getRole().equalsIgnoreCase("ROLE_USER")) {
                 return ResponseEntity.badRequest().body(CustomResponse.builder()
-                                .responseCode("400")
-                                .responseMessage("User role cannot be applied here")
+                        .responseCode("400")
+                        .responseMessage("User role cannot be applied here")
                         .build());
 
             }
+        }
             UserCredential userCredential = UserCredential.builder()
                     .firstName(request.getFirstName())
                     .lastName(request.getLastName())
@@ -87,8 +88,7 @@ public class AdminService {
 
             UserCredential savedAdminCredential = userCredentialRepository.save(userCredential);
             log.info("Saved user: {}", modelMapper.map(savedAdminCredential, AdminDto.class));
-            String encryptedEmail = passwordEncoder.encode(savedAdminCredential.getEmail());
-            String invitationLink = "http://wwww.localhost:5511/?email=" + encryptedEmail;
+            String invitationLink = "http://wwww.localhost:5511/?email=" + savedAdminCredential.getEmail();
 
             EmailDetails adminInvite = EmailDetails.builder()
                     .subject("ADMIN INVITE")
@@ -98,10 +98,9 @@ public class AdminService {
                     .build();
             emailService.sendEmailAlert(adminInvite);
             return ResponseEntity.ok(CustomResponse.builder()
-                        .responseCode("200")
-                        .responseMessage("SUCCESS")
-                .build());
+                    .responseCode("200")
+                    .responseMessage("SUCCESS")
+                    .build());
         }
 
     }
-}

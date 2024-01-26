@@ -89,6 +89,19 @@ public class AdminService {
             log.info("Saved user: {}", modelMapper.map(savedAdminCredential, AdminDto.class));
             String encryptedEmail = passwordEncoder.encode(savedAdminCredential.getEmail());
             String invitationLink = "http://wwww.localhost:5511/?email=" + encryptedEmail;
+
+            EmailDetails adminInvite = EmailDetails.builder()
+                    .subject("ADMIN INVITE")
+                    .recipient(userCredentialExist.get().getEmail())
+                    .messageBody("You have been invited to join your team on " +
+                            "QuickPay admin dashboard. Click the link below to join")
+                    .build();
+            emailService.sendEmailAlert(adminInvite);
+            return ResponseEntity.ok(CustomResponse.builder()
+                        .responseCode("200")
+                        .responseMessage("SUCCESS")
+                .build());
         }
+
     }
 }

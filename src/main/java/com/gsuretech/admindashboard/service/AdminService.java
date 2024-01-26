@@ -6,6 +6,7 @@ import com.gsuretech.admindashboard.dto.CustomResponse;
 import com.gsuretech.admindashboard.dto.EmailDetails;
 import com.gsuretech.admindashboard.dto.InviteLinkRequest;
 import com.gsuretech.admindashboard.entity.Role;
+import com.gsuretech.admindashboard.entity.Team;
 import com.gsuretech.admindashboard.entity.UserCredential;
 import com.gsuretech.admindashboard.repository.UserCredentialRepository;
 import lombok.AllArgsConstructor;
@@ -73,7 +74,21 @@ public class AdminService {
                         .build());
 
             }
+            UserCredential userCredential = UserCredential.builder()
+                    .firstName(request.getFirstName())
+                    .lastName(request.getLastName())
+                    .team(Team.valueOf(request.getTeam()))
+                    .role(Role.valueOf(request.getRole()))
+                    .createdBy(loggedInUser)
+                    .modifiedBy(loggedInUser)
+                    .inviteAccepted(false)
+                    .invitationLinkExpiry(LocalDateTime.now().plusHours(24))
+                    .build();
 
+            UserCredential savedAdminCredential = userCredentialRepository.save(userCredential);
+            log.info("Saved user: {}", modelMapper.map(savedAdminCredential, AdminDto.class));
+            String encryptedEmail = passwordEncoder.encode(savedAdminCredential.getEmail());
+            String invitationLink = "http://wwww.localhost:5511/?email=" + encryptedEmail;
         }
     }
 }

@@ -13,7 +13,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 public class InviteLinkRequest {
+    private String firstName;
+    private String lastName;
     private String email;
-    private String password;
-    private Role role;
+    private String team;
+    private String role;
 }

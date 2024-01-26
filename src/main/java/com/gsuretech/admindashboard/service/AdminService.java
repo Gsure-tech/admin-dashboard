@@ -66,7 +66,7 @@ public class AdminService {
                                 .responseMessage("This user has already accepted an invitation link")
                         .build());
             }
-            if(request.getRole().equals(Role.valueOf("ROLE_USER"))){
+            if(request.getRole().equalsIgnoreCase("ROLE_USER")){
                 return ResponseEntity.badRequest().body(CustomResponse.builder()
                                 .responseCode("400")
                                 .responseMessage("User role cannot be applied here")

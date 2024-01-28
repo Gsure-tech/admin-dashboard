@@ -111,7 +111,12 @@ public class AdminService {
                     .build());
         }
 
-
+        if(!request.getPassword().equals(request.getConfirmPassword())){
+            return ResponseEntity.badRequest().body(CustomResponse.builder()
+                            .responseCode("400")
+                            .responseMessage("Incorrect Password/Password do no Match")
+                    .build());
+        }
          }
 
     }

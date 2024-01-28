@@ -1,10 +1,7 @@
 package com.gsuretech.admindashboard.service;
 
 
-import com.gsuretech.admindashboard.dto.AdminDto;
-import com.gsuretech.admindashboard.dto.CustomResponse;
-import com.gsuretech.admindashboard.dto.EmailDetails;
-import com.gsuretech.admindashboard.dto.InviteLinkRequest;
+import com.gsuretech.admindashboard.dto.*;
 import com.gsuretech.admindashboard.entity.Role;
 import com.gsuretech.admindashboard.entity.Team;
 import com.gsuretech.admindashboard.entity.UserCredential;
@@ -102,5 +99,10 @@ public class AdminService {
                     .responseMessage("SUCCESS")
                     .build());
         }
+
+
+         public ResponseEntity<CustomResponse> acceptInvite(String email, AcceptInviteRequest){
+        if
+         }
 
     }

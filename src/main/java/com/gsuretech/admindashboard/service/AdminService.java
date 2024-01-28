@@ -6,6 +6,7 @@ import com.gsuretech.admindashboard.entity.Role;
 import com.gsuretech.admindashboard.entity.Team;
 import com.gsuretech.admindashboard.entity.UserCredential;
 import com.gsuretech.admindashboard.repository.UserCredentialRepository;
+import com.gsuretech.admindashboard.utils.AppUtils;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
@@ -101,8 +102,16 @@ public class AdminService {
         }
 
 
-         public ResponseEntity<CustomResponse> acceptInvite(String email, AcceptInviteRequest){
-        if
+         public ResponseEntity<CustomResponse> acceptInvite(String email, AcceptInviteRequest request){
+
+        if(AppUtils.isPasswordValid(request.getPassword())){
+            return ResponseEntity.badRequest().body(CustomResponse.builder()
+                            .responseCode("400")
+                            .responseMessage("Password is not valid")
+                    .build());
+        }
+
+
          }
 
     }

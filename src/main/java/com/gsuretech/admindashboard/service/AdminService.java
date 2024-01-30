@@ -117,6 +117,14 @@ public class AdminService {
                             .responseMessage("Incorrect Password/Password do no Match")
                     .build());
         }
+
+        UserCredential userCredential = userCredentialRepository.findByEmail(email).get();
+        if(userCredential.isInviteAccepted()){
+            return ResponseEntity.badRequest().body(CustomResponse.builder()
+                            .responseCode("400")
+                            .responseMessage("You cannot accept the invite link twice")
+                    .build());
+        }
          }
 
     }

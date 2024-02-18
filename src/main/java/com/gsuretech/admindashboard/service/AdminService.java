@@ -125,6 +125,7 @@ public class AdminService {
                             .responseMessage("You cannot accept the invite link twice")
                     .build());
         }
+        return null;
          }
 
     }
